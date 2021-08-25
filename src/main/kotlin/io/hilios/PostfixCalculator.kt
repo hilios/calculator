@@ -1,3 +1,13 @@
+package io.hilios
+
+import io.hilios.calculator.Calculator
+import io.hilios.calculator.CalculatorError
+import io.hilios.calculator.Expr
+import io.hilios.calculator.Memory
+import io.hilios.data.Either
+import io.hilios.data.Stack
+import io.hilios.data.add
+
 /**
  * A reverse polish notation calculator (a.k.a. Postfix) implementation based on a stack and a lazy mathematical
  * expression.
@@ -16,7 +26,7 @@ object PostfixCalculator : Calculator<Expr> {
         "sqrt" -> Calculator.requires1 { x -> Stack.one(Expr.Sqrt(x)) }
         "undo" -> Calculator.requires1 {
             // Unfolds an expression into its original bits.
-            when(it) {
+            when (it) {
                 is Expr.Const -> Stack.Empty
                 is Expr.Add -> Stack.one(it.x).add(it.y)
                 is Expr.Subtract -> Stack.one(it.x).add(it.y)
@@ -25,7 +35,7 @@ object PostfixCalculator : Calculator<Expr> {
                 is Expr.Sqrt -> Stack.one(it.x)
             }
         }
-        "clear" -> Calculator.pure  { Stack.Empty }
+        "clear" -> Calculator.pure { Stack.Empty }
         else -> Calculator.fromEither {
             Either.catchExceptions { Stack.one(Expr.Const(input)) }.leftMap { CalculatorError.InputError(input) }
         }

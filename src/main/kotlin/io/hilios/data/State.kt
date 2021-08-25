@@ -1,5 +1,7 @@
+package io.hilios.data
+
 /**
- * A minimal implementation of the State monad.
+ * A minimal implementation of the io.hilios.data.State monad.
  */
 data class State<S, out A>(private val fa: (S) -> Pair<S, A>) {
     fun <B> map(f: (A) -> B): State<S, B> = State {

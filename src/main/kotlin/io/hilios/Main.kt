@@ -1,5 +1,11 @@
-import CalculatorError.Companion.show
-import Expr.Companion.show
+import io.hilios.calculator.CalculatorError.Companion.show
+import io.hilios.calculator.Expr
+import io.hilios.calculator.Expr.Companion.show
+import io.hilios.PostfixCalculator
+import io.hilios.data.Left
+import io.hilios.data.Stack
+import io.hilios.data.map
+import io.hilios.data.mkString
 import kotlin.system.exitProcess
 
 /**

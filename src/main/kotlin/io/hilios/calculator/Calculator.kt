@@ -1,10 +1,22 @@
+package io.hilios.calculator
+
+import io.hilios.data.Either
+import io.hilios.data.Left
+import io.hilios.data.Right
+import io.hilios.data.Stack
+import io.hilios.data.State
+import io.hilios.data.append
+import io.hilios.data.drop
+import io.hilios.data.flatMap
+import io.hilios.data.get
+
 typealias Memory<A> = State<Stack<A>, Either<CalculatorError, Stack<A>>>
 
 /**
  * The base structure of a calculator, which is a string parser and function that transforms the memory that can either
  * succeed or fail.
  *
- * The memory is defined as a State monad that transforms a Stack of element and returns either an [CalculatorError] or
+ * The memory is defined as a io.hilios.data.State monad that transforms a io.hilios.data.Stack of element and returns either an [CalculatorError] or
  * the modified part of the stack.
  *
  * On the companion object are provides helper function such as that enables the calculator implementation to create
@@ -26,7 +38,7 @@ fun interface Calculator<A> {
                 // Parse the input and combine the results into the memory
                 parse(input).map { result ->
                     val wrapped = result.leftMap { CalculatorError.TraceableError(input, index, it) }
-                    // Either's flatMap encodes the short circuit functionality, so we show the first error
+                    // io.hilios.data.Either's io.hilios.data.flatMap encodes the short circuit functionality, so we show the first error
                     lastResult.flatMap { wrapped }
                 }
             }
@@ -43,7 +55,7 @@ fun interface Calculator<A> {
         }
 
         /**
-         * Apply a transformation with side effects to the stack and append all elements to the memory and if it fails
+         * Apply a transformation with side effects to the stack and io.hilios.data.append all elements to the memory and if it fails
          * just returns the original stack
          */
         fun <A> fromEither(f: (Stack<A>) -> Either<CalculatorError, Stack<A>>): Memory<A> = Memory { stack ->

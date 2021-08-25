@@ -1,5 +1,7 @@
+package io.hilios.data
+
 /**
- * A minimal implementation of the Either monad
+ * A minimal implementation of the io.hilios.data.Either monad
  */
 sealed class Either<out A, out B> {
 

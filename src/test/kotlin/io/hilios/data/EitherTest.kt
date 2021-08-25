@@ -1,3 +1,5 @@
+package io.hilios.data
+
 import kotlin.test.*
 
 class EitherTest {
@@ -47,7 +49,7 @@ class EitherTest {
         assertEquals(leftString, rightBias)
         assertEquals(leftString, right246.flatMap { leftString })
 
-        // Binds across Left
+        // Binds across io.hilios.data.Left
         val leftDouble: Either<Double, Int> = Left(12.3)
         assertEquals(leftDouble, right123.flatMap { leftDouble })
     }
